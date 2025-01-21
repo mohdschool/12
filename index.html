@@ -79,13 +79,19 @@
         .motivation {
             font-size: 20px;
             font-weight: bold;
-            color: #27ae60;
             margin: 20px auto;
-            padding: 10px;
+            padding: 15px;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             max-width: 800px;
+            animation: fadeIn 2s ease-in-out;
+            color: #2c3e50; /* لون النص */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         main {
@@ -149,16 +155,6 @@
             color: #fff;
             font-size: 16px;
             box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* تأثيرات الحركة */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        table {
-            animation: fadeIn 1s ease-in-out;
         }
 
         /* تنسيقات العد التنازلي */
@@ -287,8 +283,8 @@
         </div>
         <div id="date"></div>
     </header>
-    <div class="motivation">
-        "النجاح هو مجموع الجهود الصغيرة التي تتكرر يوميًا. اجعل كل يوم فرصة للتقدم والتميز!"
+    <div class="motivation" id="motivation-text">
+        <!-- العبارة التحفيزية ستظهر هنا -->
     </div>
     <main>
         <!-- حقل البحث -->
@@ -456,6 +452,30 @@
         function changeColor(color) {
             document.body.style.background = color;
         }
+
+        // العبارات التحفيزية
+        const motivationalPhrases = [
+            "وَفِي ذَٰلِكَ فَلْيَتَنَافَسِ الْمُتَنَافِسُونَ",
+            "النجاح هو مجموع الجهود الصغيرة التي تتكرر يوميًا.",
+            "اجعل كل يوم فرصة للتقدم والتميز!",
+            "المثابرة هي مفتاح النجاح.",
+            "لا تؤجل عمل اليوم إلى الغد.",
+            "النجاح يبدأ بخطوة واحدة.",
+            "التفوق هو نتيجة العمل الجاد.",
+            "كل يوم هو فرصة جديدة لتحقيق النجاح.",
+            "النجاح ليس نهاية، بل هو رحلة مستمرة.",
+            "كن اليوم أفضل مما كنت عليه بالأمس."
+        ];
+
+        // تغيير العبارة التحفيزية كل 5 ثوانٍ
+        function changeMotivationalPhrase() {
+            const motivationText = document.getElementById('motivation-text');
+            const randomIndex = Math.floor(Math.random() * motivationalPhrases.length);
+            motivationText.textContent = motivationalPhrases[randomIndex];
+        }
+
+        setInterval(changeMotivationalPhrase, 5000); // تغيير العبارة كل 5 ثوانٍ
+        changeMotivationalPhrase(); // عرض العبارة الأولى عند التحميل
     </script>
 </body>
 </html>
