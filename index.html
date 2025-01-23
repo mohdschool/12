@@ -169,6 +169,11 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
+        .countdown-timer.active {
+            color: #e74c3c; /* لون أحمر للعد التنازلي النشط */
+            font-weight: bold;
+        }
+
         /* تنسيقات للأجهزة المحمولة */
         @media (max-width: 768px) {
             h1 {
@@ -384,9 +389,24 @@
                         </div>
                     `;
                 } else {
-                    countdownElement.innerHTML = `
-                        <div class="exam-ended">بدأ الامتحان</div>
-                    `;
+                    const examEndTime = new Date(examDate.getTime() + exam.duration * 60 * 60 * 1000);
+                    const timeLeft = examEndTime - now;
+
+                    if (timeLeft > 0) {
+                        const hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                        const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                        countdownElement.innerHTML = `
+                            <div class="countdown-timer active">
+                                الوقت المتبقي: ${hoursLeft} ساعات ${minutesLeft} دقائق ${secondsLeft} ثواني
+                            </div>
+                        `;
+                    } else {
+                        countdownElement.innerHTML = `
+                            <div class="exam-ended">انتهى الامتحان</div>
+                        `;
+                    }
                 }
             });
         }
